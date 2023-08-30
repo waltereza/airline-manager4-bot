@@ -83,7 +83,7 @@ function getFormattedDate() {
 
 
 const browser = await puppeteer.launch({
-    headless: false,
+    headless: "new",
     defaultViewport: null,
     args: ['--window-size=1280,800']
 });
