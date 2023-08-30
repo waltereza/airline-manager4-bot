@@ -15,7 +15,7 @@ E aí! Esse bot foi feito pra dar uma força no Airline Manager 4. No momento, e
    ```
 
 2. **Bora configurar**:
-   Coloca suas informações no arquivo `.env`:
+   Coloca suas informações no arquivo `.env.example` e salva ele como `.env`:
    ```
    EMAIL="teuemail@email.com"
    PASSWD="tuasenha"
