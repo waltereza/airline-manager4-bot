@@ -1,7 +1,3 @@
-Combinado! Aqui está o `README.md` ajustado:
-
----
-
 # Airline Manager 4 Bot
 
 E aí! Esse bot foi feito pra dar uma força no Airline Manager 4. No momento, ele faz algumas coisas legais:
@@ -50,7 +46,3 @@ Esse aqui faz os voos decolarem sozinhos. Você pode escolher de quanto em quant
 
 - Os tempos pra checar os preços de combustível e CO2 são de 30 e 31 minutos, tá? Se quiser mudar, vai ter que dar uma mexida no código.
 - E não esquece de ajustar o tempo que você quer que os aviões decolem, tá bom? Dá pra escolher entre 1 e 24 horas.
-
----
-
-Assim ficou legal?
