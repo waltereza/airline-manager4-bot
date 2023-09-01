@@ -11,7 +11,7 @@ function banner() {
 
     console.log(`
       
-                _______________________________________
+                 _______________________________________
                 |                                       |
                 |   _____ __    _____ _____     _       |
                 |  |  _  |  |  |     | __  |___| |_     |
@@ -123,20 +123,27 @@ const browser = await puppeteer.launch({
    
 
     const flightDeparture = async () => {
-        await page.waitForSelector(btnroutes, {visible: true});
         await page.waitForTimeout(2000);
-        await page.click(btnroutes);
+        await page.evaluate((selector) => {
+            const element = document.querySelector(selector);
+            if (element) element.click();
+        }, btnroutes);
     
         try {
             await page.waitForSelector(btndeparture, {visible: true, timeout: 10000});
             await page.click(btndeparture);
             log(chalk.green("Planes successfully departed!"));
-            await page.waitForSelector(btnclose, {visible: true});
-            await page.click(btnclose);
+            await page.evaluate((selector) => {
+                const element = document.querySelector(selector);
+                if (element) element.click();
+            }, btnclose);
         } catch (error) {
             if (error.name === "TimeoutError") {
                 log(chalk.yellow("No planes to take off."));
-                await page.click(btnclose);
+                await page.evaluate((selector) => {
+                    const element = document.querySelector(selector);
+                    if (element) element.click();
+                }, btnclose);
             } else {
                 log(chalk.red(`Unexpected error: ${error.message}`));
             }
