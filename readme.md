@@ -6,6 +6,9 @@ E aí! Esse bot foi feito pra dar uma força no Airline Manager 4. No momento, e
 - Compra CO2 pelo preço que você definir.
 - Manda voos decolarem de forma automática.
 
+![image](https://github.com/waltereza/airline-manager4-bot/assets/76440319/240b95f0-b08d-436f-9977-ef477f44e501)
+
+
 ## Como colocar pra rodar
 
 1. **Primeiro, instale tudo**:
