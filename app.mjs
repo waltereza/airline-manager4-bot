@@ -201,8 +201,8 @@ const browser = await puppeteer.launch({
                 if (element) element.click();
             }, btncomprar);
             await page.waitForTimeout(2000);
-            
-            log(`${chalk.green("Fuel purchase successfully completed!")} cost: $${parsedfuelprice / 1000 * parsedfuelcap}`);
+            let cost = parsedfuelprice / 1000 * parsedfuelcap;
+            log(`${chalk.green("Fuel purchase successfully completed!")} cost: ${cost.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'}).replace('R$', '$')}`);
         }
         
 
@@ -258,8 +258,9 @@ const browser = await puppeteer.launch({
                 const element = document.querySelector(selector);
                 if (element) element.click();
             }, btnclose);            
-            log(`${chalk.green('CO2 purchase successfully completed!')} cost: $${parsedco2price / 1000 * parsedco2cap}`);
-
+            let co2Cost = parsedco2price / 1000 * parsedco2cap;
+            log(`${chalk.green('CO2 purchase successfully completed!')} cost: ${co2Cost.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'}).replace('R$', '$')}`);
+            
         }
         
     }
