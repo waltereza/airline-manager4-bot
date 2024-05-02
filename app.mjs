@@ -83,7 +83,7 @@ function getFormattedDate() {
 
 
 const browser = await puppeteer.launch({
-    headless: "new",
+    headless: false,
     defaultViewport: null,
     args: ['--window-size=1280,800']
 });
@@ -149,8 +149,6 @@ const browser = await puppeteer.launch({
             }
         }
     }
-        
-
 
     const fuelPrice = async () => {
         await page.waitForFunction((selector) => {
@@ -170,10 +168,9 @@ const browser = await puppeteer.launch({
         }, {}, efuelprice);
 
         let fuelpriceTxt = await page.$eval(efuelprice, element => element.innerText);
-        let fuelprice = fuelpriceTxt.replace(/[^0-9]/g, '');
-        let parsedfuelprice = parseInt(fuelprice);
-
-
+        let fuelprice = fuelpriceTxt.replace(/[^0-9,]/g, '').replace(',', '.');
+        let parsedfuelprice = parseFloat(fuelprice);
+    
         await page.waitForSelector(ecap);
         let fuelcapTxt = await page.$eval(ecap, element => element.innerText);
         let fuelcap = fuelcapTxt.replace(/[^0-9]/g, '');
@@ -201,8 +198,8 @@ const browser = await puppeteer.launch({
                 if (element) element.click();
             }, btncomprar);
             await page.waitForTimeout(2000);
-            let cost = parsedfuelprice / 1000 * parsedfuelcap;
-            log(`${chalk.green("Fuel purchase successfully completed!")} cost: ${cost.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'}).replace('R$', '$')}`);
+            let cost = parsedfuelprice * qtdFuel;
+            log(`${chalk.green("Fuel purchase successfully completed!")} cost: ${cost.toLocaleString('en-US', {style: 'currency', currency: 'USD'}).replace('US$', '$')}`);
         }
         
 
@@ -230,8 +227,8 @@ const browser = await puppeteer.launch({
             return element && element.innerText && element.innerText.trim() !== "";
         }, {}, eco2price);
         let co2priceTxt = await page.$eval(eco2price, element => element.innerText);
-        let co2price = co2priceTxt.replace(/[^0-9]/g, '');
-        let parsedco2price = parseInt(co2price);
+        let co2price = co2priceTxt.replace(/[^0-9,]/g, '').replace(',', '.');
+        let parsedco2price = parseFloat(co2price);        
 
         await page.waitForSelector(ecap);
         let co2capTxt = await page.$eval(ecap, element => element.innerText);
@@ -258,8 +255,8 @@ const browser = await puppeteer.launch({
                 const element = document.querySelector(selector);
                 if (element) element.click();
             }, btnclose);            
-            let co2Cost = parsedco2price / 1000 * parsedco2cap;
-            log(`${chalk.green('CO2 purchase successfully completed!')} cost: ${co2Cost.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'}).replace('R$', '$')}`);
+            let co2Cost = (parsedco2price * qtdCo2) / 1000;
+            log(`${chalk.green('CO2 purchase successfully completed!')} cost: ${co2Cost.toLocaleString('en-US', {style: 'currency', currency: 'USD'}).replace('US$', '$')}`);
             
         }
         
