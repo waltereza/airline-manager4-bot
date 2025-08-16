@@ -43,9 +43,10 @@ let qtdCo2 = process.env.CO2QTD;
 let departureTime = parseInt(process.env.DEPARTTIME, 10);
 
 
-const btnlogin = 'body > div.am4-bg-frontpage > div > div.row.justify-content-between.py-0.py-lg-0 > div.col-12.col-lg-5.align-self-center.white-bg-opacity-landingpage > div > button.py-3.py-lg-3.btn.btn-lg.btn-primary-gradient.btn-block';
+const btnlanding = '//*[@id="landing"]/div[1]/div/div[1]/button[1]';
+const btnlogin = '//*[@id="signupForm"]/div[2]/button';
 const btnauth = '#btnLogin';
-const bxremeber = '#remember';
+const bxremeber = '//*[@id="remember"]';
 const ebank = '#headerAccount';
 const cemail = '#lEmail';
 const cpasswd = '#lPass';
@@ -92,18 +93,16 @@ const browser = await puppeteer.launch({
 
     await page.goto(url);
 
-    await page.waitForFunction((selector) => {
-        const element = document.querySelector(selector);
-        return element && element.innerText && element.innerText.trim() !== "";
-    }, {}, btnlogin);
-    await page.evaluate((selector) => {
-        const element = document.querySelector(selector);
-        if (element) element.click();
-    }, btnlogin);
+    await page.waitForXPath(btnlanding);
+    const [landingBtn] = await page.$x(btnlanding);
+    if (landingBtn) await landingBtn.click();
+
+    await page.waitForXPath(btnlogin);
+    const [loginBtn] = await page.$x(btnlogin);
+    if (loginBtn) await loginBtn.click();
 
     await page.type(cemail, user)
     await page.type(cpasswd, passwd)
-    await page.click(bxremeber)
     await page.waitForTimeout(1000);
     await page.evaluate((selector) => {
         const element = document.querySelector(selector);
