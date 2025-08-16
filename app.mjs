@@ -185,7 +185,7 @@ const browser = await puppeteer.launch({
             }, btnclose);
         } else if (parsedfuelprice > idealFuelPrice) {
             log(chalk.yellow("Nothing purchased, fuel price higher than configured"));
-            await page.click|(btnclose)
+            await page.click(btnclose)
         } else if (parsedfuelprice <= idealFuelPrice && parsedfuelcap > 0) {
             await page.evaluate(selector => {
                 document.querySelector(selector).value = '';
